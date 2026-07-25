@@ -46,8 +46,7 @@ public class FirstTestCase {
             testLogger.error(e.getStackTrace());
         } finally {
             if (driver != null) {
-                driver.quit();
-            }
+                driver.quit();            }
         }
     }
 
