@@ -15,79 +15,62 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class HandlingAutoSuggestionDropdown {
 
-    private static Logger testLogger =
-            LogManager.getLogger(HandlingAutoSuggestionDropdown.class);
+	private static Logger testLogger = LogManager.getLogger(HandlingAutoSuggestionDropdown.class);
 
-    private static WebDriver driver;
-    private static WebDriverWait wait;
+	private static WebDriver driver;
+	private static WebDriverWait wait;
 
-    public static void main(String[] args) {
+	public static void main(String[] args) {
 
-        try {
-            ChromeOptions options = new ChromeOptions();
-            options.addArguments("--incognito");
+		try {
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--incognito");
 
-            testLogger.info("Launching Chrome in Incognito Mode");
-            driver = new ChromeDriver(options);
+			testLogger.info("Launching Chrome in Incognito Mode");
+			driver = new ChromeDriver(options);
 
-            driver.manage().window().maximize();
-            driver.get("https://www.flipkart.com/");
+			driver.manage().window().maximize();
+			driver.get("https://www.flipkart.com/");
 
-            wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+			wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-            // Close login popup
-            WebElement closePopup = wait.until(
-                    ExpectedConditions.elementToBeClickable(
-                            By.xpath("//span[text()='✕']")));
+			// Close login popup
+			WebElement closePopup = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//span[text()='✕']")));
 
-            closePopup.click();
-            testLogger.info("Login popup closed");
+			closePopup.click();
+			testLogger.info("Login popup closed");
 
-            // Search product
-            WebElement searchBox = driver.findElement(By.name("q"));
-            searchBox.sendKeys("macbook pro");
+			// Search product
+			WebElement searchBox = driver.findElement(By.name("q"));
+			searchBox.sendKeys("macbook pro");
 
-            // Wait for suggestions
-            By suggestionLocator =
-                    By.xpath("//input[@name='q']/ancestor::form//ul//a");
+			// Wait for suggestions
+			By suggestionLocator = By.xpath("//input[@name='q']/ancestor::form//ul//a");
 
-            wait.until(
-                    ExpectedConditions.visibilityOfElementLocated(
-                            suggestionLocator));
+			wait.until(ExpectedConditions.visibilityOfElementLocated(suggestionLocator));
 
-            List<WebElement> suggestions =
-                    driver.findElements(suggestionLocator);
+			List<WebElement> suggestions = driver.findElements(suggestionLocator);
 
-            testLogger.info("Total Suggestions: " + suggestions.size());
+			testLogger.info("Total Suggestions: " + suggestions.size());
 
-            for (WebElement suggestion : suggestions) {
+			for (WebElement suggestion : suggestions) {
 
-                String productName = suggestion.getText().trim();
-                testLogger.info("Suggestion: " + productName);
+				String productName = suggestion.getText().trim();
+				testLogger.info("Suggestion: " + productName);
 
-                if (productName.equalsIgnoreCase("macbook pro m4 pro")) {
-                    suggestion.click();
-                    testLogger.info("Clicked on: " + productName);
-                    break;
-                }
-            }
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+				if (productName.equalsIgnoreCase("macbook pro m4 pro")) {
+					suggestion.click();
+					testLogger.info("Clicked on: " + productName);
+					break;
+				}
+			}
 
-        } catch (Exception e) {
-            testLogger.error("Test Failed", e);
-        } finally {
-            if (driver != null) {
-                driver.quit();
-            }
-        }
-    }
+		} catch (Exception e) {
+			testLogger.error("Test Failed", e);
+		} finally {
+			if (driver != null) {
+				driver.quit();
+			}
+		}
+	}
 }
