@@ -42,6 +42,7 @@ public class RightClick_handling {
 			testLogger.info("Right clicking on the Swatch element");
 			testLogger.info("---------------------------------");
 			action.contextClick(Swatch).perform();
+			driver.navigate().refresh();
 
 			testLogger.info("Performed Right click on the Swatch element");
 
