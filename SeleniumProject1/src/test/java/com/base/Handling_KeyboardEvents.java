@@ -52,7 +52,7 @@ public class Handling_KeyboardEvents {
 			if (driver != null) {
 				Thread.sleep(6000); // Wait for 2 seconds before closing the browser
 				driver.quit();
-				testLogger.info("Browser closed");
+				testLogger.info("Browser closed....");
 			}
 		}
 	}
