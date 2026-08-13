@@ -1,5 +1,6 @@
 package com.base;
 
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.logging.log4j.LogManager;
@@ -30,30 +31,43 @@ public class Handling_Webtables {
 
 			testLogger.info("Current URL : " + driver.getCurrentUrl());
 			testLogger.info("Title       : " + driver.getTitle());
-			
+
 			testLogger.info("Finding all the headers in the webtable");
-			List<WebElement> allHeaders = driver.findElements(By.xpath("//table[@name='cust_123']//th")); 			
-			
+			List<WebElement> allHeaders = driver.findElements(By.xpath("//table[@name='cust_123']//th"));
+
 			testLogger.info("Total number of headers found: " + allHeaders.size());
-			
+
 			testLogger.info("Printing all the headers:");
 			for (WebElement header : allHeaders) {
 				testLogger.info("Header: " + header.getText());
 			}
-			
+
 			testLogger.info("Finding all the rows in the webtable");
-			List<WebElement> allrows = driver.findElements(By.xpath("//table[@name='cust_123']//tr")); 
-			
+			List<WebElement> allrows = driver.findElements(By.xpath("//table[@name='cust_123']//tr"));
+
 			testLogger.info("Total number of rows found: " + allrows.size());
-			
+
 			testLogger.info("Printing all the rows:");
-			for(WebElement rows : allrows) {
+			for (WebElement rows : allrows) {
 				testLogger.info("Row: \t" + rows.getText());
 			}
+
+			testLogger.info("Finding all the data in the first row of the webtable");
+			List<WebElement> SecRowData = driver.findElements(By.xpath("//table[@name='cust_123']//tbody//tr[2]/td"));
 			
 			
+
+			testLogger.info("Total number of data found in the second row: " + SecRowData.size());
 			
+			testLogger.info("================================");
 			
+			testLogger.info("Printing all the data in the second row:");
+			Iterator<WebElement> itr = SecRowData.iterator();
+			while (itr.hasNext()) {
+				WebElement data = itr.next();
+				testLogger.info("Data: " + data.getText());
+			}
+
 		} catch (Exception e) {
 			testLogger.error("Test Failed", e);
 		} finally {
@@ -65,5 +79,3 @@ public class Handling_Webtables {
 		}
 	}
 }
-
-
